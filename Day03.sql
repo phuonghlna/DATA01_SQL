@@ -48,6 +48,16 @@ WHERE author_id = viewer_id
 GROUP BY id
 ORDER BY id
 
+-- ex 13
+SELECT part, assembly_step FROM parts_assembly
+WHERE finish_date IS NULL 
 
+-- ex 14
+select * from lyft_drivers
+where yearly_salary <= 30000 or yearly_salary > 70000
+
+-- ex 15
+select advertising_channel, money_spent from uber_advertising
+where money_spent > 100000 and year = 2019
 
 
