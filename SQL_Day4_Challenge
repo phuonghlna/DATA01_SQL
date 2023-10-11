@@ -1,0 +1,56 @@
+-- Tối đa; tối thiểu; trung bình; tổng chi phí thay thế
+
+SELECT film_id,
+MAX(replacement_cost)AS max_cost,
+MIN(replacement_cost) AS min_cost,
+ROUND(AVG(replacement_cost),2) AS avg_cost,
+SUM(replacement_cost) AS sum_cost
+FROM film
+GROUP BY film_id
+ORDER BY film_id
+
+-- HAVING
+-- Khách hàng nào đã trả tổng số tiền > $100
+
+SELECT customer_id,
+SUM(amount) as total_amount
+FROM payment
+GROUP BY customer_id
+HAVING SUM(amount) >100
+
+-- HAVING VS WHERE
+-- Khách hàng nào đã trả tổng số tiền > $10 trong tháng 01/2020
+
+SELECT customer_id,
+SUM(amount) as total_amount
+FROM payment
+WHERE payment_date BETWEEN '2020-01-01' AND '2020-02-01'
+GROUP BY customer_id
+HAVING SUM(amount) >10
+
+-- Số tiền thanh toán trung bình nhóm theo KH và ngày thanh toán
+-- Chỉ xem xét những ngày KH có nhiều hơn 1 khoản thanh toán
+-- SX theo thứ tự giảm dần
+-- 28,29,30/04/2020 là những ngày có doanh thu cao nên muốn xem xét
+
+SELECT
+customer_id,
+DATE(payment_date),
+ROUND(AVG(amount),2) AS avg_amount,
+COUNT(payment_id)
+FROM payment
+WHERE DATE(payment_date) IN ('2020-04-28','2020-04-29','2020-04-30')
+GROUP BY customer_id, DATE(payment_date)
+HAVING COUNT(payment_id) > 1
+ORDER BY aVG(amount) DESC
+
+-- Tạo danh sách các bộ phim có giá thuê ít hơn 4% chi phí thay thế
+-- Tạo danh sách film_id có cùng tỷ lệ phần trăm (giá thuê/ chi phí thay thế)
+-- được làm tròn đến 2 chữ số thập phân
+
+SELECT film_id,
+rental_rate,
+replacement_cost,
+ROUND(rental_rate/replacement_cost*100,2) AS percentage
+FROM film
+WHERE ROUND(rental_rate/replacement_cost*100,2) < 4
