@@ -4,7 +4,14 @@ FROM STATION
 WHERE (ID % 2) = 0
 
 -- Ex02
-SELECT COUNT(CITY) - COUNT(DISTINCT CITY) AS GAP
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY)
 FROM STATION
 
 -- Ex03
+SELECT CEIL(AVG(salary) - AVG(REPLACE(salary, 0, ''))) 
+FROM employees
+
+-- Ex04
+SELECT
+ROUND(CAST(SUM(item_count*order_occurrences)/SUM(order_occurrences)AS DECIMAL),1) AS mean
+FROM items_per_order
