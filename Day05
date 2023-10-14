@@ -33,3 +33,48 @@ GROUP BY user_id
 HAVING COUNT (post_id) >=2
 
 -- Ex07
+SELECT
+card_name,
+MAX(issued_amount) - MIN(issued_amount) AS Gap
+FROM monthly_cards_issued
+GROUP BY card_name
+ORDER BY Gap DESC
+
+-- Ex08
+SELECT
+manufacturer,
+COUNT(drug) AS drug_count,
+ABS(SUM(cogs-total_sales)) AS total_lost
+FROM pharmacy_sales
+WHERE total_sales < cogs
+GROUP BY manufacturer
+ORDER BY total_lost DESC
+
+-- Ex09
+SELECT
+id, movie, description, rating 
+FROM Cinema
+WHERE id % 2 = 1 AND description <> 'Boring'
+ORDER BY rating DESC
+
+-- Ex10
+SELECT
+teacher_id,
+COUNT(DISTINCT subject_id) AS Cnt 
+FROM Teacher
+GROUP BY teacher_id
+
+-- Ex11
+SELECT user_id, 
+COUNT(follower_id) as followers_count
+FROM Followers
+GROUP BY user_id
+ORDER BY user_id
+
+-- Ex12
+SELECT class
+FROM Courses
+GROUP BY class
+HAVING COUNT(student) >= 5
+
+
