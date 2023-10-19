@@ -52,6 +52,10 @@ WHERE activity_date BETWEEN '2019-06-27' -30 AND '2019-07-27'
 GROUP BY activity_date
 
 -- Ex08
+select COUNT(id)
+from employees
+where EXTRACT(MONTH FROM joining_date) BETWEEN '1' AND '7'
+AND EXTRACT(YEAR FROM joining_date) = '2022'
 
 -- Ex09
 select position('a' IN first_name)
