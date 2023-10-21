@@ -18,6 +18,12 @@ END as triangle
 FROM Triangle
 
 -- Ex03
+-- Bài này khi run  code luôn bị báo lỗi division by zero. Team hỗ trợ check lại giúp mình với. Thanks Team!
+select 
+round(count(case when coalesce(call_category, 'n/a')  in ('', 'n/a') 
+then case_id end)::decimal/
+count(case_id)::decimal*100,1) as call_percentage
+FROM callers
 
 -- Ex04
 SELECT name
