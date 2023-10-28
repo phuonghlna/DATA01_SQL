@@ -6,11 +6,11 @@ LIMIT 1
 --Cau-2
 SELECT
 SUM(CASE WHEN replacement_cost BETWEEN 9.99 AND 19.99 THEN 1 ELSE 0
-END) AS Low,
-SUM(CASE WHEN replacement_cost BETWEEN 20 AND 24.99 THEN 1 ELSE 0
+END) AS Low
+/*SUM(CASE WHEN replacement_cost BETWEEN 20 AND 24.99 THEN 1 ELSE 0
 END) AS Medium,
 SUM(CASE WHEN replacement_cost BETWEEN 25 AND 29.99 THEN 1 ELSE 0
-END) AS High
+END) AS High*/
 FROM film
 
 --Cau-3
