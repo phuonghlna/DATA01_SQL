@@ -35,5 +35,22 @@ WHERE ranking <= 2
 ORDER BY category, ranking;
 
 -- Ex03
+SELECT COUNT(policy_holder_id) AS member_count
+FROM (SELECT policy_holder_id,
+COUNT(case_id) AS call_count
+FROM callers
+GROUP BY policy_holder_id
+HAVING COUNT(case_id) >=3
+) AS call_records
+
+-- Ex04
+WITH page_like_id AS (
+SELECT page_id 
+FROM page_likes
+WHERE page_id IS NULL
+)
+SELECT p.page_id
+FROM pages p JOIN page_like_id pl
+ON p.page_id = pl.page_id
 
 
