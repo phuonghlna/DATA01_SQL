@@ -81,5 +81,40 @@ FROM Transactions
 GROUP BY month, country;
 
 -- Ex07
+# Write your MySQL query statement below
+SELECT
+p.product_id, 
+(SELECT
+MIN(year) FROM Sales 
+WHERE product_id = p.product_id) AS first_year,
+s.quantity,
+s.price
+FROM
+sales s LEFT JOIN product p
+ON s.product_id = p.product_id
+GROUP BY p.product_id
+
+-- Ex08
+SELECT customer_id
+FROM customer c
+GROUP BY customer_id
+HAVING COUNT(DISTINCT product_key)=(
+  SELECT COUNT(DISTINCT product_key) 
+  FROM product
+)
+
+-- Ex09
+ELECT employee_id
+FROM Employees
+WHERE 
+     manager_id NOT IN (
+         SELECT employee_id
+         FROM Employees
+     )
+    AND
+     salary < 30000
+
+-- Ex10
+
 
 
