@@ -115,6 +115,34 @@ WHERE
      salary < 30000
 
 -- Ex10
+-- Ex này đang trùng với ex1
 
+-- Ex11
+# Write your MySQL query statement below
+(SELECT u.name AS results
+FROM MovieRating mr, Users u
+WHERE u.user_id = mr.user_id
+GROUP BY mr.user_id
+ORDER BY COUNT(mr.user_id) DESC, u.name
+LIMIT 1)
 
+UNION ALL
 
+(SELECT m.title AS results
+FROM MovieRating mr, Movies m
+WHERE mr.movie_id = m.movie_id
+AND mr.created_at LIKE '2020-02-%'
+GROUP BY mr.movie_id
+ORDER BY AVG(mr.rating) DESC, m.title
+LIMIT 1)
+
+-- Ex12
+WITH base AS(SELECT requester_id id FROM RequestAccepted
+UNION ALL
+SELECT accepter_id id FROM RequestAccepted)
+
+SELECT id, count(*) num  
+FROM base
+GROUP BY id
+ORDER BY COUNT(*) DESC
+LIMIT 1
